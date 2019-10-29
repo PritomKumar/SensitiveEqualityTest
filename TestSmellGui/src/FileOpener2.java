@@ -34,6 +34,7 @@ public class FileOpener2 extends JFrame {
 	private String javaFileName ;
 	private String errorLog ;
 	private JTextArea txtErrorLog;
+	private JScrollPane scroll;
 	private int returnValue = -1;;
 	private boolean isProject = true;
 	private boolean fileClickTest = false;
@@ -77,21 +78,17 @@ public class FileOpener2 extends JFrame {
 		chooseFolder.setCurrentDirectory(new File("G:\\TestProjectError"));
 		chooseFolder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
-		JPanel mainBox = new JPanel();
-		mainBox.setBounds(5, 5, 822, 486);
-		contentPane.add(mainBox);
-		mainBox.setLayout(null);
-		
 		
 		JLabel messageBox = new JLabel("");
 		messageBox.setForeground(Color.BLACK);
 		messageBox.setFont(new Font("Imprint MT Shadow", Font.ITALIC, 18));
 		messageBox.setBounds(301, 13, 511, 41);
-		mainBox.add(messageBox);
+		contentPane.add(messageBox);
 		
 		JButton btnSelectProject = new JButton("Select Project....");
 		btnSelectProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				txtErrorLog.setText("");
 				messageBox.setForeground(Color.MAGENTA);
 				messageBox.setText("Choose a Project... ");
 				returnValue = openFolderChooser.showOpenDialog(FileOpener2.this);
@@ -101,6 +98,7 @@ public class FileOpener2 extends JFrame {
 					System.out.println("Folder Name = " + javaFileName);
 					isProject = true;
 					fileClickTest = true;
+					
 					messageBox.setForeground(Color.GREEN);
 					messageBox.setText("JAVA folder Successfully Loaded !!! ");
 				}
@@ -111,13 +109,13 @@ public class FileOpener2 extends JFrame {
 			}
 		});
 		btnSelectProject.setBounds(12, 13, 130, 41);
-		mainBox.add(btnSelectProject);
+		contentPane.add(btnSelectProject);
 		
 		
 		JButton SelectFileButton = new JButton("Select File.....");
 		SelectFileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				txtErrorLog.setText("");
 				messageBox.setForeground(Color.MAGENTA);
 				messageBox.setText("Choose a File... ");
 				returnValue = openFileChooser.showOpenDialog(FileOpener2.this);
@@ -138,16 +136,21 @@ public class FileOpener2 extends JFrame {
 			}
 		});
 		SelectFileButton.setBounds(154, 13, 130, 41);
-		mainBox.add(SelectFileButton);
+		contentPane.add(SelectFileButton);
 		
-		JScrollPane scroll = new JScrollPane(txtErrorLog , JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED ,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		
 		txtErrorLog = new JTextArea();
+		
+		//contentPane.add(txtErrorLog);
+		//txtErrorLog.add(scroll);
+		scroll = new JScrollPane(txtErrorLog , JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED ,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		txtErrorLog.setFont(new Font("Lucida Console", Font.BOLD, 16));
-		txtErrorLog.setBounds(12, 69, 752, 406);
-		mainBox.add(txtErrorLog);
-		mainBox.add(scroll);
+		scroll.setBounds(12, 69, 752, 406);
+		scroll.setVisible(true);
+		contentPane.add(scroll);
+		//scroll.setViewportView(txtErrorLog);
 		
 		JButton btnShowResult = new JButton("Show Result");
 		btnShowResult.setBounds(230, 522, 149, 37);
@@ -211,14 +214,18 @@ public class FileOpener2 extends JFrame {
 							
 							File folder = new File(javaFileName);
 							se.chooseFolder(folder);
-							errorLog = se.showErrors();
+							errorLog = se.getErrorLog();
+							se.setErrorLog("");
 							int errorCount = se.getErrorCount();
+							se.setErrorCount(0);
+							txtErrorLog.setText("");
 							messageBox.setForeground(Color.RED);
 							messageBox.setText("There are " + errorCount + " errors in project");
 						}
 						else {
 							se.chooseFile(javaFileName);
-							errorLog = se.showErrors();
+							errorLog = se.getErrorLog();
+							se.setErrorLog("");
 							int errorCount = se.getErrorCount();
 							messageBox.setForeground(Color.RED);
 							messageBox.setText("There are " + errorCount + " errors in file");

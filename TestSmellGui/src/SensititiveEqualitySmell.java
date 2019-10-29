@@ -61,15 +61,26 @@ public class SensititiveEqualitySmell {
 	    }
 	  }
 	  
-	  public String showErrors() {
-		  return errorLog;
-	  }
 	  
 	  public static int getErrorCount() {
 		return errorCount;
+	  }
+
+	public static String getErrorLog() {
+		return errorLog;
 	}
 
-	public static void printMessage( String path ,ArrayList<ErrorRecords> errors) {
+	public static void setErrorLog(String errorLog) {
+		SensititiveEqualitySmell.errorLog = errorLog;
+	}
+
+	public static void setErrorCount(int errorCount) {
+		SensititiveEqualitySmell.errorCount = errorCount;
+	}
+
+	
+
+	 public static void printMessage( String path ,ArrayList<ErrorRecords> errors) {
 		  System.out.println("File Path = " + path);
 		  errorLog = errorLog + "File Path = " + path +'\n' +'\n';
 		  System.out.println();
