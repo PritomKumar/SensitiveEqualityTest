@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Desktop;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -60,8 +62,9 @@ public class FileOpener2 extends JFrame {
 	 */
 	public FileOpener2() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 880, 630);
+		setBounds(100, 100, 856, 630);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(30, 144, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -71,7 +74,7 @@ public class FileOpener2 extends JFrame {
 		openFileChooser.setFileFilter(new FileNameExtensionFilter("JAVA Class", "java"));
 		
 		openFolderChooser = new JFileChooser();
-		openFolderChooser.setCurrentDirectory(new File("G:\\pritom\\SpamBase"));
+		openFolderChooser.setCurrentDirectory(new File("G:\\pritom"));
 		openFolderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
 		chooseFolder = new JFileChooser();
@@ -80,12 +83,16 @@ public class FileOpener2 extends JFrame {
 		
 		
 		JLabel messageBox = new JLabel("");
+		messageBox.setBackground(new Color(255, 255, 255));
 		messageBox.setForeground(Color.BLACK);
 		messageBox.setFont(new Font("Imprint MT Shadow", Font.ITALIC, 18));
-		messageBox.setBounds(301, 13, 511, 41);
+		messageBox.setBounds(395, 13, 435, 41);
 		contentPane.add(messageBox);
 		
 		JButton btnSelectProject = new JButton("Select Project....");
+		btnSelectProject.setForeground(new Color(102, 51, 0));
+		btnSelectProject.setFont(new Font("Source Code Pro Black", Font.PLAIN, 12));
+		btnSelectProject.setBackground(new Color(102, 255, 0));
 		btnSelectProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				txtErrorLog.setText("");
@@ -108,11 +115,14 @@ public class FileOpener2 extends JFrame {
 				}
 			}
 		});
-		btnSelectProject.setBounds(12, 13, 130, 41);
+		btnSelectProject.setBounds(28, 13, 165, 41);
 		contentPane.add(btnSelectProject);
 		
 		
 		JButton SelectFileButton = new JButton("Select File.....");
+		SelectFileButton.setForeground(new Color(102, 51, 0));
+		SelectFileButton.setFont(new Font("Source Code Pro Black", Font.PLAIN, 12));
+		SelectFileButton.setBackground(new Color(102, 255, 0));
 		SelectFileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				txtErrorLog.setText("");
@@ -135,7 +145,7 @@ public class FileOpener2 extends JFrame {
 				
 			}
 		});
-		SelectFileButton.setBounds(154, 13, 130, 41);
+		SelectFileButton.setBounds(203, 13, 170, 41);
 		contentPane.add(SelectFileButton);
 		
 		
@@ -147,20 +157,28 @@ public class FileOpener2 extends JFrame {
 		scroll = new JScrollPane(txtErrorLog , JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED ,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		txtErrorLog.setFont(new Font("Lucida Console", Font.BOLD, 16));
-		scroll.setBounds(12, 69, 752, 406);
+		scroll.setBounds(12, 69, 818, 406);
 		scroll.setVisible(true);
 		contentPane.add(scroll);
 		//scroll.setViewportView(txtErrorLog);
 		
 		JButton btnShowResult = new JButton("Show Result");
-		btnShowResult.setBounds(230, 522, 149, 37);
+		btnShowResult.setForeground(new Color(255, 255, 204));
+		btnShowResult.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 12));
+		btnShowResult.setBackground(new Color(102, 51, 204));
+		btnShowResult.setBounds(313, 522, 204, 37);
 		contentPane.add(btnShowResult);
 		
-		JButton btnCheckForErrors = new JButton("Check For Errors");
-		btnCheckForErrors.setBounds(38, 522, 165, 37);
+		JButton btnCheckForErrors = new JButton("Check For Smells");
+		btnCheckForErrors.setForeground(new Color(255, 51, 0));
+		btnCheckForErrors.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 12));
+		btnCheckForErrors.setBackground(new Color(51, 255, 102));
+		btnCheckForErrors.setBounds(38, 522, 204, 37);
 		contentPane.add(btnCheckForErrors);
 		
 		JButton btnSaveResultAs = new JButton("Save Result As Text File");
+		btnSaveResultAs.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 12));
+		btnSaveResultAs.setBackground(new Color(255, 215, 0));
 		btnSaveResultAs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -178,8 +196,16 @@ public class FileOpener2 extends JFrame {
 						try {
 							String fileName = javaFileName + "\\ErrorLog.txt";
 							fw = new FileWriter(fileName);
-							fw.write(errorLog);    
-							fw.close();  
+							fw.write(errorLog);
+							fw.close();
+							File file = new File(fileName);
+							if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+								  String cmd = "rundll32 url.dll,FileProtocolHandler " + file.getCanonicalPath();
+								  Runtime.getRuntime().exec(cmd);
+								} 
+							else {
+								  Desktop.getDesktop().edit(file);
+							}
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -200,7 +226,7 @@ public class FileOpener2 extends JFrame {
 			}
 				
 		});
-		btnSaveResultAs.setBounds(410, 522, 189, 37);
+		btnSaveResultAs.setBounds(580, 522, 204, 37);
 		contentPane.add(btnSaveResultAs);
 		
 		btnCheckForErrors.addActionListener(new ActionListener() {
@@ -219,16 +245,34 @@ public class FileOpener2 extends JFrame {
 							int errorCount = se.getErrorCount();
 							se.setErrorCount(0);
 							txtErrorLog.setText("");
-							messageBox.setForeground(Color.RED);
-							messageBox.setText("There are " + errorCount + " errors in project");
+							
+							if(errorCount == 0) {
+								messageBox.setForeground(Color.GREEN);
+							//messageBox.setText("There are " + errorCount + " test smells in project");
+								messageBox.setText("There are no test smells in project");
+							}
+							else {
+								messageBox.setForeground(Color.RED);
+								messageBox.setText("There are " + errorCount + " test smells in project");
+								//messageBox.setText("There are Some test smells in project");
+							}
 						}
 						else {
 							se.chooseFile(javaFileName);
 							errorLog = se.getErrorLog();
 							se.setErrorLog("");
 							int errorCount = se.getErrorCount();
-							messageBox.setForeground(Color.RED);
-							messageBox.setText("There are " + errorCount + " errors in file");
+							//messageBox.setForeground(Color.RED);
+							if(errorCount == 0) {
+								messageBox.setForeground(Color.GREEN);
+								//messageBox.setText("There are " + errorCount + " test smells in project");
+									messageBox.setText("There are no test smells in file");
+								}
+								else {
+									messageBox.setForeground(Color.RED);
+									messageBox.setText("There are " + errorCount + " test smells in project");
+									//messageBox.setText("There are Some test smells in file");
+								}
 						}
 						
 					} catch (IOException e) {

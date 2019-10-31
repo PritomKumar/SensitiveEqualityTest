@@ -115,15 +115,16 @@ public class SensititiveEqualitySmell {
 			  String currentLine = st;
 			  currentLine = currentLine.trim();
 			  String merger = "";
-			  if(currentLine.contains("assertEquals")) {
+			  if(currentLine.contains("assert")) {
 				  merger = currentLine;
 				  String stTemp = st;
-				  while ((st = br.readLine()) != null) {
+				  for ( ; st!=null ; ) {
+				  //for ( ;(st = br.readLine()) != null; ) {
 				  	 
 				  	  st = st.trim();
 				  	  stTemp = stTemp.trim();
 				  	  
-				  	  if(stTemp.contains(".toString()")) {
+				  	  if(stTemp.contains("toString()")) { 
 				  		/*  
 				  		 System.out.println("Line Number " + lineNumber ); 
 						 System.out.println("Merger = "+ stTemp);
@@ -136,7 +137,13 @@ public class SensititiveEqualitySmell {
 					  
 					  lineNumber++;
 					  if(stTemp.contains(";")) {
+						  stTemp = st;
+						  lineNumber--;
 						  break;
+					  }
+					  else {
+						  st = br.readLine();
+						  
 					  }
 					  stTemp = st;
 
