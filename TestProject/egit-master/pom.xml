@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (C) 2009, Igor Fedorenko <igor@ifedorenko.com>
+   Copyright (C) 2010, Chris Aniszczyk <caniszczyk@gmail.com>
+   Copyright (C) 2011-2012 Matthias Sohn <matthias.sohn@sap.com>
+
+   All rights reserved. This program and the accompanying materials
+   are made available under the terms of the Eclipse Public License 2.0
+   which accompanies this distribution, and is available at
+   https://www.eclipse.org/legal/epl-2.0/
+
+   SPDX-License-Identifier: EPL-2.0
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.eclipse.egit</groupId>
+  <artifactId>egit-parent</artifactId>
+  <version>5.6.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>EGit Parent</name>
+
+  <mailingLists>
+    <mailingList>
+      <name>egit-dev Mailing List</name>
+      <post>egit-dev@eclipse.org</post>
+      <subscribe>https://dev.eclipse.org/mailman/listinfo/egit-dev</subscribe>
+      <unsubscribe>https://dev.eclipse.org/mailman/listinfo/egit-dev</unsubscribe>
+      <archive>https://dev.eclipse.org/mhonarc/lists/egit-dev</archive>
+    </mailingList>
+
+    <mailingList>
+      <name>GIT Mailing List</name>
+      <post>git@vger.kernel.org</post>
+      <archive>https://marc.info/?l=git</archive>
+    </mailingList>
+  </mailingLists>
+
+  <issueManagement>
+    <url>https://bugs.eclipse.org/bugs/buglist.cgi?query_format=advanced;product=EGit;classification=Technology</url>
+    <system>Bugzilla</system>
+  </issueManagement>
+
+  <licenses>
+    <license>
+      <name>Eclipse Public License 2.0</name>
+      <comments>
+        All rights reserved. This program and the accompanying materials
+        are made available under the terms of the Eclipse Public License 2.0
+        which accompanies this distribution, and is available at
+        https://www.eclipse.org/legal/epl-2.0/
+
+        SPDX-License-Identifier: EPL-2.0
+      </comments>
+    </license>
+  </licenses>
+
+  <properties>
+    <egit-version>5.6.0-SNAPSHOT</egit-version>
+    <tycho-version>1.5.1</tycho-version>
+    <tycho-extras-version>${tycho-version}</tycho-extras-version>
+    <jboss-tycho-plugins-version>1.4.0</jboss-tycho-plugins-version>
+    <spotbugs-maven-plugin-version>3.1.11</spotbugs-maven-plugin-version>
+    <jgit-site>file:/${basedir}/../../jgit/org.eclipse.jgit.packaging/org.eclipse.jgit.repository/target/repository</jgit-site>
+    <license-site>https://download.eclipse.org/cbi/updates/license</license-site>
+    <signer-input-directory>/home/data/httpd/download-staging.priv/egit</signer-input-directory>
+    <download-publish-path>/home/data/httpd/download.eclipse.org/egit/updates-nightly</download-publish-path>
+    <target-platform>egit-4.6</target-platform>
+    <tycho.scmUrl>scm:git:https://git.eclipse.org/r/egit/egit.git</tycho.scmUrl>
+    <test.vmparams></test.vmparams>
+    <coretest.vmparams></coretest.vmparams>
+    <uitest.vmparams>-Dorg.eclipse.swtbot.search.timeout=30000 -Dorg.eclipse.swtbot.screenshots.dir=target/screenshots -Xmx1024m</uitest.vmparams>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <profiles>
+    <profile>
+      <id>static-checks</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>eclipse-sign</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>target-platform-configuration</artifactId>
+            <configuration>
+              <includePackedArtifacts>true</includePackedArtifacts>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.eclipse.tycho.extras</groupId>
+            <artifactId>tycho-pack200a-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>pack200-normalize</id>
+                <goals>
+                  <goal>normalize</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.eclipse.cbi.maven.plugins</groupId>
+            <artifactId>eclipse-jarsigner-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.eclipse.tycho.extras</groupId>
+            <artifactId>tycho-pack200b-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>pack200-pack</id>
+                <goals>
+                  <goal>pack</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-p2-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>p2-metadata</id>
+                <goals>
+                  <goal>p2-metadata</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+            <configuration>
+              <defaultP2Metadata>false</defaultP2Metadata>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>eclipse-pack</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>target-platform-configuration</artifactId>
+            <configuration>
+              <includePackedArtifacts>true</includePackedArtifacts>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.eclipse.tycho.extras</groupId>
+            <artifactId>tycho-pack200a-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>pack200-normalize</id>
+                <goals>
+                  <goal>normalize</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.eclipse.tycho.extras</groupId>
+            <artifactId>tycho-pack200b-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>pack200-pack</id>
+                <goals>
+                  <goal>pack</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-p2-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>p2-metadata</id>
+                <goals>
+                  <goal>p2-metadata</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+            <configuration>
+              <defaultP2Metadata>false</defaultP2Metadata>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>macosx</id>
+      <activation>
+        <os>
+          <name>mac os x</name>
+          <family>mac</family>
+        </os>
+      </activation>
+      <properties>
+        <ui.test.vmargs>${test.vmparams} ${uitest.vmparams} -XstartOnFirstThread</ui.test.vmargs>
+      </properties>
+    </profile>
+    <profile>
+      <id>other-os</id>
+      <activation>
+        <os>
+          <name>not-mac</name>
+          <family>!mac</family>
+        </os>
+      </activation>
+      <properties>
+        <ui.test.vmargs>${test.vmparams} ${uitest.vmparams}</ui.test.vmargs>
+      </properties>
+    </profile>
+  </profiles>
+
+  <modules>
+    <module>org.eclipse.egit.target</module>
+
+    <module>org.eclipse.egit</module>
+    <module>org.eclipse.egit.core</module>
+    <module>org.eclipse.egit.ui</module>
+
+    <module>org.eclipse.egit.mylyn.ui</module>
+    <module>org.eclipse.egit.mylyn-feature</module>
+
+    <module>org.eclipse.egit.doc</module>
+    <module>org.eclipse.egit-feature</module>
+
+    <module>org.eclipse.egit.gitflow-feature</module>
+	<module>org.eclipse.egit.gitflow</module>
+	<module>org.eclipse.egit.gitflow.ui</module>
+    <module>org.eclipse.egit.gitflow.test</module>
+
+    <module>org.eclipse.egit.source-feature</module>
+
+    <module>org.eclipse.egit.repository</module>
+
+    <module>org.eclipse.egit.core.junit</module>
+    <module>org.eclipse.egit.core.test</module>
+    <module>org.eclipse.egit.ui.test</module>
+    <module>org.eclipse.egit.mylyn.ui.test</module>
+  </modules>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.eclipse.org.cbi-releases</id>
+      <url>https://repo.eclipse.org/content/repositories/cbi-releases/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>repo.eclipse.org.cbi-snapshots</id>
+      <url>https://repo.eclipse.org/content/repositories/cbi-snapshots/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <repositories>
+    <repository>
+      <id>jgit</id>
+      <layout>p2</layout>
+      <url>${jgit-site}</url>
+    </repository>
+    <repository>
+      <id>eclipse.license</id>
+      <layout>p2</layout>
+      <url>${license-site}</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.5.2</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <configuration>
+          <target>
+            <artifact>
+              <groupId>org.eclipse.egit</groupId>
+              <artifactId>org.eclipse.egit.target</artifactId>
+              <version>${egit-version}</version>
+              <classifier>${target-platform}</classifier>
+            </artifact>
+          </target>
+          <resolver>p2</resolver>
+          <pomDependencies>consider</pomDependencies>
+          <environments>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86</arch>
+            </environment>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86_64</arch>
+            </environment>
+            <environment>
+              <os>win32</os>
+              <ws>win32</ws>
+              <arch>x86</arch>
+            </environment>
+            <environment>
+              <os>win32</os>
+              <ws>win32</ws>
+              <arch>x86_64</arch>
+            </environment>
+            <environment>
+              <os>macosx</os>
+              <ws>cocoa</ws>
+              <arch>x86_64</arch>
+            </environment>
+          </environments>
+        </configuration>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <!-- Tycho plugins -->
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-compiler-plugin</artifactId>
+          <version>${tycho-version}</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+            <source>1.8</source>
+            <target>1.8</target>
+            <!-- Do not use useProjectSettings; it'll always override -nowarn -->
+            <useProjectSettings>false</useProjectSettings>
+            <compilerArgs>
+              <arg>-properties</arg>
+              <arg>${project.basedir}/.settings/org.eclipse.jdt.core.prefs</arg>
+              <arg>-nowarn</arg>
+            </compilerArgs>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-source-plugin</artifactId>
+          <version>${tycho-version}</version>
+          <executions>
+            <execution>
+              <id>attach-source</id>
+              <goals>
+                <goal>plugin-source</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-packaging-plugin</artifactId>
+          <version>${tycho-version}</version>
+          <configuration>
+            <sourceReferences>
+              <generate>true</generate>
+            </sourceReferences>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.eclipse.tycho.extras</groupId>
+              <artifactId>tycho-sourceref-jgit</artifactId>
+              <version>${tycho-extras-version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-surefire-plugin</artifactId>
+          <version>${tycho-version}</version>
+          <configuration>
+            <trimStackTrace>false</trimStackTrace>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-maven-plugin</artifactId>
+          <version>${tycho-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>target-platform-configuration</artifactId>
+          <version>${tycho-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-p2-plugin</artifactId>
+          <version>${tycho-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-p2-publisher-plugin</artifactId>
+          <version>${tycho-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho</groupId>
+          <artifactId>tycho-p2-repository-plugin</artifactId>
+          <version>${tycho-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho.extras</groupId>
+          <artifactId>tycho-pack200a-plugin</artifactId>
+          <version>${tycho-extras-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.tycho.extras</groupId>
+          <artifactId>tycho-pack200b-plugin</artifactId>
+          <version>${tycho-extras-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.jboss.tools.tycho-plugins</groupId>
+          <artifactId>repository-utils</artifactId>
+          <version>${jboss-tycho-plugins-version}</version>
+        </plugin>
+        <!-- other plugins -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.0.0-M2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.8</version>
+        </plugin>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${spotbugs-maven-plugin-version}</version>
+          <configuration>
+            <xmlOutput>true</xmlOutput>
+            <failOnError>false</failOnError>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>3.11.0</version>
+          <configuration>
+            <sourceEncoding>utf-8</sourceEncoding>
+            <minimumTokens>100</minimumTokens>
+            <targetJdk>1.8</targetJdk>
+            <format>xml</format>
+            <failOnViolation>false</failOnViolation>
+            <linkXRef>false</linkXRef>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>cpd-check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>3.1.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.cbi.maven.plugins</groupId>
+          <artifactId>eclipse-jarsigner-plugin</artifactId>
+          <version>1.1.5</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <distributionManagement>
+    <repository>
+      <id>repo.eclipse.org</id>
+      <name>EGit Maven Repository - Releases</name>
+      <url>https://repo.eclipse.org/content/repositories/egit-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>repo.eclipse.org</id>
+      <name>EGit Maven Repository - Snapshots</name>
+      <url>https://repo.eclipse.org/content/repositories/egit-snapshots/</url>
+      <uniqueVersion>true</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
+</project>

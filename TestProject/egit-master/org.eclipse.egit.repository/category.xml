@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="Eclipse Git Plugin">
+      This is a pure Java implementation of the Git version control system and integrates it into Eclipse.
+   </description>
+   <feature url="features/org.eclipse.egit_0.0.0.qualifier.jar" id="org.eclipse.egit" version="0.0.0" patch="true">
+      <category name="EGit"/>
+   </feature>
+   <feature url="features/org.eclipse.egit.sources_0.0.0.qualifier.jar" id="org.eclipse.egit.source" version="0.0.0" patch="true">
+      <category name="EGit"/>
+   </feature>
+   <feature url="features/org.eclipse.egit.mylyn_0.0.0.qualifier.jar" id="org.eclipse.egit.mylyn" version="0.0.0">
+      <category name="EGit"/>
+   </feature>
+   <feature url="features/org.eclipse.jgit_0.0.0.qualifier.jar" id="org.eclipse.jgit" version="0.0.0" patch="true">
+      <category name="JGit"/>
+   </feature>
+   <feature url="features/org.eclipse.jgit.source_0.0.0.qualifier.jar" id="org.eclipse.jgit.source" version="0.0.0" patch="true">
+      <category name="JGit"/>
+   </feature>
+   <feature url="features/org.eclipse.jgit.pgm_0.0.0.qualifier.jar" id="org.eclipse.jgit.pgm" version="0.0.0" patch="true">
+      <category name="JGit"/>
+   </feature>
+   <feature url="features/org.eclipse.jgit.http.apache_0.0.0.qualifier.jar" id="org.eclipse.jgit.http.apache" version="0.0.0">
+      <category name="JGit"/>
+   </feature>
+   <feature url="features/org.eclipse.jgit.lfs_0.0.0.qualifier.jar" id="org.eclipse.jgit.lfs" version="0.0.0">
+      <category name="JGit"/>
+   </feature>
+   <feature url="features/org.eclipse.jgit.ssh.apache_0.0.0.qualifier.jar" id="org.eclipse.jgit.ssh.apache" version="0.0.0">
+      <category name="JGit"/>
+   </feature>
+   <feature url="features/org.eclipse.egit.gitflow.feature_0.0.0.qualifier.jar" id="org.eclipse.egit.gitflow.feature" version="0.0.0">
+      <category name="EGit.experimental"/>
+   </feature>
+   <category-def name="EGit" label="Git integration for Eclipse">
+      <description>
+         Versioning with Git, integration with Gerrit, GitHub, Gitflow, and Task repositories
+      </description>
+   </category-def>
+   <category-def name="JGit" label="Java implementation of Git">
+      <description>
+         Java implementation of Git
+      </description>
+   </category-def>
+   <category-def name="EGit.experimental" label="Git integration for Eclipse - experimental features  (incubation)"/>
+   <repository-reference location="https://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui" enabled="true" />
+</site>

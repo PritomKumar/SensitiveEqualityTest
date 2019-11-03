@@ -1,0 +1,16 @@
+<testsuite tests="1">
+	<testcase classname="ExpressionFormatterTest" name="testModifyString" />
+	<testcase classname="ExpressionFormatterTest" name="testRemove" />
+	<testcase classname="ExpressionFormatterTest" name="testGetRightExp" />
+	<testcase classname="SimulateEquationTest" name="testIsOperatorForAdd" />
+	<testcase classname="SimulateEquationTest" name="testIsOperatorForDivide" />
+	<testcase classname="SimulateEquationTest" name="testIsOperatorForMultiplication" />
+	<testcase classname="OperationTest" name="testAddOperation" />
+	<testcase classname="OperationTest" name="testSubtractOperation" />
+	<testcase classname="OperationTest" name="testDivisionOperation" />
+	<testcase classname="OperationTest" name="testMultiplicationOperation" />
+	<testcase classname="ExpressionSimulationResultTest" name="testNoBracketExpression" />
+	<testcase classname="ExpressionSimulationResultTest" name="testBracketExpression" />
+	<testcase classname="ExpressionSimulationResultTest" name="testParameterExpression" />
+	<testcase classname="ExpressionSimulationResultTest" name="testMultiBracketExpression" />
+</testsuite>

@@ -1,0 +1,214 @@
+------Error Log------
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\GitMoveDeleteHookTest.java
+
+Line Number = 253
+Error = assertTrue(gitDirAbsolutePath.toString(),
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\internal\SshPreferencesMirrorTest.java
+
+Line Number = 63
+Error = .toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\synchronize\GitResourceVariantTreeTest.java
+
+Line Number = 142
+Error = String path1 = r1.getFullPath().toString();
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\test\GitURITest.java
+
+Line Number = 67
+Error = .toString());
+Line Number = 86
+Error = assertEquals("bundles/org.eclipse.jface", gitUri.getPath().toString());
+Line Number = 106
+Error = .getPath().toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\test\models\ModelTestCase.java
+
+Line Number = 94
+Error = assertEquals(expectedContents, contentsBuilder.toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\test\op\CloneOperationTest.java
+
+Line Number = 115
+Error = uri.toString(),
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\test\op\ConnectProviderOperationTest.java
+
+Line Number = 104
+Error = assertNotEquals(path, new Path(gitDir.toString()));
+Line Number = 105
+Error = assertNotEquals(path.toFile().toString(),
+Line Number = 106
+Error = new Path(gitDir.toString()).toFile().toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\test\op\CreatePatchOperationTest.java
+
+Line Number = 255
+Error = assertPatch("test-file", oldPath.toString());
+Line Number = 256
+Error = assertPatch("test-file", newPath.toString());
+Line Number = 275
+Error = assertPatch("test-file", oldPath.toString());
+Line Number = 276
+Error = assertPatch("test-file", newPath.toString());
+Line Number = 314
+Error = assertPatch(SIMPLE_WORKSPACE_PATCH_CONTENT, sb1.toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\test\op\RemoveFromIndexOperationTest.java
+
+Line Number = 212
+Error = assertTrue(testRepo.inIndex(file.getLocation().toString()));
+Line Number = 216
+Error = assertFalse(testRepo.inIndex(file.getLocation().toString()));
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\test\ProjectReferenceTest.java
+
+Line Number = 40
+Error = assertEquals(url, projectReference.getRepository().toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.core.test\src\org\eclipse\egit\core\test\rebase\RebaseInteractivePlanTest.java
+
+Line Number = 189
+Error = assertEquals("[1, 2, 3, 4]", joined.getFirstList().toString());
+Line Number = 191
+Error = .toString());
+Line Number = 193
+Error = joined.toString());
+Line Number = 196
+Error = assertEquals("[1, 2, 3, 4]", joined.getFirstList().toString());
+Line Number = 198
+Error = .toString());
+Line Number = 200
+Error = joined.toString());
+Line Number = 206
+Error = assertEquals("[0, 1, 2, 3, 4]", joined.getFirstList().toString());
+Line Number = 208
+Error = .toString());
+Line Number = 210
+Error = joined.toString());
+Line Number = 213
+Error = assertEquals("[0, 1, 2, 3, 4]", joined.getFirstList().toString());
+Line Number = 215
+Error = .toString());
+Line Number = 217
+Error = joined.toString());
+Line Number = 220
+Error = assertEquals("[0, 1, 2, 3, 4]", joined.getFirstList().toString());
+Line Number = 222
+Error = .toString());
+Line Number = 224
+Error = joined.toString());
+Line Number = 228
+Error = .toString());
+Line Number = 230
+Error = .toString());
+Line Number = 232
+Error = joined.toString());
+Line Number = 236
+Error = .toString());
+Line Number = 238
+Error = .getSecondList().toString());
+Line Number = 240
+Error = joined.toString());
+Line Number = 248
+Error = .getSecondList().toString());
+Line Number = 250
+Error = joined.toString());
+Line Number = 258
+Error = .toString());
+Line Number = 265
+Error = assertEquals("[1, 2, 3, 4]", joined.getFirstList().toString());
+Line Number = 267
+Error = .getSecondList().toString());
+Line Number = 380
+Error = assertEquals("[2, 3, 4, 5, 7, 8, 9]", joined.toString());
+Line Number = 381
+Error = assertEquals("[2, 3, 4]", joined.getFirstList().toString());
+Line Number = 382
+Error = assertEquals("[5, 7, 8, 9]", joined.getSecondList().toString());
+Line Number = 388
+Error = assertEquals("[1, 2, 3, 4, 5, 6, 7, 8, 9]", joined.toString());
+Line Number = 389
+Error = assertEquals("[1, 2, 3, 4]", joined.getFirstList().toString());
+Line Number = 390
+Error = assertEquals("[5, 6, 7, 8, 9]", joined.getSecondList().toString());
+Line Number = 393
+Error = assertEquals("[1, 2, 3, 5, 6, 7, 8, 9]", joined.toString());
+Line Number = 394
+Error = assertEquals("[1, 2, 3]", joined.getFirstList().toString());
+Line Number = 395
+Error = assertEquals("[5, 6, 7, 8, 9]", joined.getSecondList().toString());
+Line Number = 398
+Error = assertEquals("[1, 2, 3, 6, 7, 8, 9]", joined.toString());
+Line Number = 399
+Error = assertEquals("[1, 2, 3]", joined.getFirstList().toString());
+Line Number = 400
+Error = assertEquals("[6, 7, 8, 9]", joined.getSecondList().toString());
+Line Number = 407
+Error = assertEquals("[1, 4, 5, 7, 8, 9, 10]", joined.toString());
+Line Number = 408
+Error = assertEquals("[1, 4]", joined.getFirstList().toString());
+Line Number = 409
+Error = assertEquals("[5, 7, 8, 9, 10]", joined.getSecondList().toString());
+Line Number = 419
+Error = joined.toString());
+Line Number = 420
+Error = assertEquals("[1, 2, 3, -4]", joined.getFirstList().toString());
+Line Number = 422
+Error = .toString());
+Line Number = 426
+Error = assertEquals("[1, 2, 3, 4]", testData1.toString());
+Line Number = 427
+Error = assertEquals("[5, 6, 7, 8, 9, 10]", testData2.toString());
+Line Number = 439
+Error = assertEquals("[1, 2, 3, 4]", subList1.toString());
+Line Number = 441
+Error = assertEquals("[5, 6, 7, 8, 9, 10]", subList2.toString());
+Line Number = 443
+Error = assertEquals("[4, 5, 6, 7]", subList3.toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.ui.test\src\org\eclipse\egit\ui\internal\clone\SmartImportWizardTest.java
+
+Line Number = 115
+Error = expectedProjectNames.toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.ui.test\src\org\eclipse\egit\ui\internal\push\PushBranchWizardTest.java
+
+Line Number = 307
+Error = assertEquals(remoteUri.toString(), config.getString(
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.ui.test\src\org\eclipse\egit\ui\test\team\actions\MergeToolTest.java
+
+Line Number = 79
+Error = hasItem(path.toString()));
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.ui.test\src\org\eclipse\egit\ui\wizards\clone\GitCloneWizardTestBase.java
+
+Line Number = 70
+Error = workingCopy.assertDirectory(destinationRepo.toString());
+
+
+File Path = F:\IIT Sixth Semester\6th Semester New\Testing and Quality Asurance\Testing Assingment\TestProject\egit-master\org.eclipse.egit.ui.test\src\org\eclipse\egit\ui\wizards\share\SharingWizardTest.java
+
+Line Number = 258
+Error = .getRepository().getDirectory().toString());
+Line Number = 261
+Error = .getRepository().getDirectory().toString());
+
+
